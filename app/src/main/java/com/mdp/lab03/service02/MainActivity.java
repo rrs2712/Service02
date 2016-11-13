@@ -13,39 +13,24 @@ import android.view.View;
 public class MainActivity extends AppCompatActivity {
 
     final private String ACT = "Act01 MainActivity";
-    private MyBoundService.MyBinder myService = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        this.bindService(new Intent(this,MyBoundService.class), serviceConnection, Context.BIND_AUTO_CREATE);
         Log.d(ACT,"onCreate()");
     }
 
-    private ServiceConnection serviceConnection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            Log.d(ACT, "onServiceConnected()");
-            myService = (MyBoundService.MyBinder) service;
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            Log.d(ACT,"onServiceDisconnected");
-            myService = null;
-        }
-    };
-
-    // on Bound Service Up
-    public void onBSUp(View v){
-        myService.countUp();
+    public void onBSStart(View view){
+        Log.d(ACT,"onBSStart");
+        this.startService(new Intent(this, MyBoundService.class));
     }
 
-    // on Bound Service Down
-    public void onBSDown(View v){
-        myService.countDown();
+    public void onBSStop(View view){
+        Log.d(ACT,"onBSStop");
+        Intent i = new Intent(MainActivity.this, MyBoundService.class);
+        this.stopService(i);
     }
 
     @Override
@@ -70,11 +55,8 @@ public class MainActivity extends AppCompatActivity {
     }
     @Override
     protected void onDestroy() {
-        if(serviceConnection!=null){
-            unbindService(serviceConnection);
-            serviceConnection = null;
-        }
-        super.onDestroy();
         Log.d(ACT,"onDestroy");
+        super.onDestroy();
+
     }
 }

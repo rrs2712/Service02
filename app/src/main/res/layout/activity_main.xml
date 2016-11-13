@@ -12,16 +12,17 @@
     tools:context="com.mdp.lab03.service02.MainActivity">
 
     <Button
-        android:text="Bound Service Up"
+        android:text="Start Service"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/button"
-        android:onClick="onBSUp" />
+        android:id="@+id/btn_start"
+        android:onClick="onBSStart"/>
 
     <Button
-        android:text="Bound Service Down"
+        android:text="Stop Service"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/button2"
-        android:onClick="onBSDown" />
+        android:id="@+id/button3"
+        android:onClick="onBSStop"/>
+
 </LinearLayout>
